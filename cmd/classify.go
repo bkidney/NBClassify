@@ -21,12 +21,9 @@
 package cmd
 
 import (
-	"encoding/gob"
 	"errors"
 	"fmt"
-	"log"
 	"math"
-	"os"
 
 	"github.com/bkidney/NBClassify/utils"
 	"github.com/spf13/cobra"
@@ -60,7 +57,7 @@ func Classify(cmd *cobra.Command, args []string) error {
 	// Load databases against which classification is done.
 	training = make(map[string]utils.TallyCount)
 	for i := 1; i < len(args); i++ {
-		training[args[i]] = loadTrainingData(args[i])
+		training[args[i]] = utils.loadTrainingData(args[i])
 	}
 
 	var totalTrainingWords int
@@ -101,25 +98,6 @@ func Classify(cmd *cobra.Command, args []string) error {
 
 	return nil
 
-}
-
-func loadTrainingData(datafile string) (trainingData utils.TallyCount) {
-
-	file, err := os.Open(datafile + ".gob")
-	if err != nil {
-		panic(err)
-	}
-	defer file.Close()
-
-	dataDec := gob.NewDecoder(file)
-	err = dataDec.Decode(&trainingData)
-	if err != nil {
-		log.Fatal("decode error:", err)
-	}
-
-	//	trainingData.Print()
-
-	return trainingData
 }
 
 func init() {
