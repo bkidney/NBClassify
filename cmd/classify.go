@@ -57,7 +57,7 @@ func Classify(cmd *cobra.Command, args []string) error {
 	// Load databases against which classification is done.
 	training = make(map[string]utils.TallyCount)
 	for i := 1; i < len(args); i++ {
-		training[args[i]] = utils.loadTrainingData(args[i])
+		training[args[i]] = utils.LoadTrainingData(args[i])
 	}
 
 	var totalTrainingWords int
