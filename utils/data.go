@@ -24,11 +24,9 @@ import (
 	"encoding/gob"
 	"log"
 	"os"
-
-	"github.com/bkidney/NBClassify/utils"
 )
 
-func loadTrainingData(datafile string) (trainingData utils.TallyCount) {
+func LoadTrainingData(datafile string) (trainingData TallyCount) {
 
 	file, err := os.Open(datafile + ".gob")
 	if err != nil {
